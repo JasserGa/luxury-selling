@@ -21,12 +21,35 @@ USE `luxury` ;
 -- Table `luxury`.`product`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `luxury`.`product` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL,
   `name` VARCHAR(255) NOT NULL,
-  `category` VARCHAR(255) NULL DEFAULT NULL,
+  `image` VARCHAR(255) NOT NULL,
   `price` DECIMAL(10,2) NOT NULL,
-  `imageUrl` VARCHAR(255) NULL DEFAULT NULL,
+  `rating` DECIMAL(3,2) NULL DEFAULT NULL,
+  `popular` TINYINT(1) NOT NULL,
+  `available` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `luxury`.`productdetails`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `luxury`.`productdetails` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `product_id` INT NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `specifications` TEXT NULL DEFAULT NULL,
+  `imageUrl` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_product_id_idx` (`product_id` ASC) VISIBLE,
+  CONSTRAINT `fk_product_id`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `luxury`.`product` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

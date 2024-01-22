@@ -1,4 +1,4 @@
-const connection =require('../mysql/index')
+const connection =require('../database Mysql/index.js')
 
 const getAll=(callback)=>{
     const query='SELECT * FROM product'
@@ -27,8 +27,8 @@ const getOne=(id,callback)=>{
 }
 const create=(productData,callback)=>{
     const{name,category,price,imageUrl}=productData
-    const query='INSERT INTO product (name,category,price,imageUrl)VALUES (?,?,?,?,?)'
-    connection.query(query,[name,category,price,imageUrl],(err,result)=>{
+    const query='INSERT INTO product (id, name, imageUrl, price, rating, popular, available)VALUES (?,?,?,?,?,?,?)'
+    connection.query(query,[id,name, imageUrl, price, rating, popular, available],(err,result)=>{
         if(err){
             callback(err,null)
         }else{
@@ -48,7 +48,7 @@ const remove=(productId,callback)=>{
 }
 const update=(productId,productData,callback)=>{
     const {name,category,price,imageUrl}=productData
-    const query='UPDATE product SET name=?,category=?,price=?,imageUrl=? WHERE id=?'
+    const query='UPDATE product SET name=?,imageUrl=?, price=?, rating=?,popular=?, available=? WHERE id=?'
     connection.query(query,[name,category,price,imageUrl,productId],(err,result)=>{
         if(err){
             callback(err,null)

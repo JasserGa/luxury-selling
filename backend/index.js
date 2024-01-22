@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 
-const db = require("./mysql/index.js")
+const db = require("./database Mysql/index.js")
 const routeProduct=require('./route/route.js')
 
 const port = 5001
